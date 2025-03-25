@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model HerbalMedicine {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  benefits    String
+  origin      String
+  createdAt   DateTime @default(now())
+}
+
+model Aromatherapy {
+  id          Int    @id @default(autoincrement())
+  name        String
+  essentialOil String
+  uses        String
+  createdAt   DateTime @default(now())
+}
+
+model TraditionalHealing {
+  id          Int    @id @default(autoincrement())
+  technique   String
+  culture     String
+  healingMethod String
+  createdAt   DateTime @default(now())
+}
