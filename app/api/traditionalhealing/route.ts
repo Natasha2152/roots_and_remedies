@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-
+import prisma from '../../../lib/prisma';
 // Define the type for the request body
 interface TraditionalHealingData {
   technique: string;

@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import prisma from '../../../lib/prisma';
+ // Adjust relative path if needed
+
+
 
 interface AromatherapyData {
   name: string;

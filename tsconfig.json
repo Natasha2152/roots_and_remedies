@@ -1,28 +1,24 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "noEmit": false,
-    "incremental": true,
-    "outDir": "dist",
-    "lib": [
-      "es2017",
-      "esnext.asynciterable"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["app/*"],
+      "@lib/*": ["app/lib/*"],
+      "@lib/queries/*": ["app/lib/queries/*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -30,11 +26,10 @@
     ]
   },
   "include": [
-    "./**/*.ts",
-    "app/api/herbalmedicine",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
