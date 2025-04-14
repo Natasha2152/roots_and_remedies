@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "incremental": true,
+    "outDir": "dist" 
+  },
+  "include": ["seed.ts"], 
+  "exclude": ["node_modules"]
+}

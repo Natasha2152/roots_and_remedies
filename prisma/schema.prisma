@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./node_modules/@prisma/client"
 }
 
 datasource db {
@@ -7,27 +8,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model HerbalMedicine {
-  id          Int    @id @default(autoincrement())
-  name        String
+model aromatherapy {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  essentialOil String
+  uses         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  benefits     String
+  category     String
+  description  String
+  imageUrl     String
+  likes        Int      @default(0)
+  origin       String
+  rating       Float?
+  symptoms     String
+  tags         String
+  usageIdeas   String
+}
+
+model herbalmedicine {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
   description String
   benefits    String
   origin      String
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  category    String
+  imageUrl    String
+  likes       Int      @default(0)
+  rating      Float?
+  symptoms    String
+  tags        String
+  usageIdeas  String
 }
 
-model Aromatherapy {
-  id          Int    @id @default(autoincrement())
-  name        String
-  essentialOil String
-  uses        String
-  createdAt   DateTime @default(now())
-}
-
-model TraditionalHealing {
-  id          Int    @id @default(autoincrement())
-  technique   String
-  culture     String
+model traditionalhealing {
+  id            Int      @id @default(autoincrement())
+  technique     String   @unique
+  culture       String
   healingMethod String
-  createdAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  usageIdeas    String
+  benefits      String
+  description   String
+  imageUrl      String
+  likes         Int      @default(0)
+  rating        Float?
+  region        String
+  tags          String
 }
