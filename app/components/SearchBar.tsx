@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-// Matching exact Prisma schema types
+// Define types for different modules
 type Aromatherapy = {
   id: number;
   name: string;
@@ -14,6 +14,7 @@ type Aromatherapy = {
   imageUrl: string;
   origin: string;
   rating: number | null;
+  likes: number;
   symptoms: string;
   tags: string;
   usageIdeas: string;
@@ -60,7 +61,6 @@ type CombinedItem = (Aromatherapy | HerbalMedicine | TraditionalHealing) & {
   moduleType: "aromatherapy" | "herbalmedicine" | "traditionalhealing";
 };
 
-
 type Props = {
   data: CombinedItem[];
   moduleType: "aromatherapy" | "herbalmedicine" | "traditionalhealing";
@@ -74,8 +74,10 @@ export default function SearchBar({ data, moduleType }: Props) {
     const query = event.target.value.toLowerCase();
     setSearchTerm(query);
 
+    // Filter the data based on name/technique and symptoms
     const results = data.filter((item) => {
-      const nameOrTechnique = "name" in item ? item.name : "technique" in item ? item.technique : "";
+      const nameOrTechnique =
+        "name" in item ? item.name : "technique" in item ? item.technique : "";
       const symptoms = "symptoms" in item ? item.symptoms : "";
 
       return (
@@ -97,6 +99,7 @@ export default function SearchBar({ data, moduleType }: Props) {
         className="w-full px-4 py-2 rounded-lg border border-[#D6E2D6] focus:outline-none focus:ring-2 focus:ring-[#A8D5BA] bg-[#F9FAF5] text-[#3A5743]"
       />
 
+      {/* If there is a search term, show the filtered results */}
       {searchTerm && (
         <div className="mt-4 space-y-2">
           {filteredData.length === 0 ? (
@@ -110,7 +113,7 @@ export default function SearchBar({ data, moduleType }: Props) {
                 <p className="text-sm font-medium text-[#3A5743]">
                   {"name" in item ? item.name : item.technique}
                 </p>
-                {"symptoms" in item && (
+                {"symptoms" in item && item.symptoms && (
                   <p className="text-xs text-[#7A947A]">{item.symptoms}</p>
                 )}
               </div>
