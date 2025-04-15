@@ -1,79 +1,99 @@
 import { getAllAromatherapy } from "../../lib/queries/aromatherapy";
 import SearchBar from "@/components/SearchBar";
 
-// Define Aromatherapy type directly in the component file
+// Define Aromatherapy type
 export type Aromatherapy = {
   id: number;
   name: string;
   essentialOil: string;
   uses: string;
-  createdAt: Date; // Reflecting Prisma's DateTime
-  updatedAt: Date; // Reflecting Prisma's DateTime
+  createdAt: Date;
+  updatedAt: Date;
   benefits: string;
   category: string;
   description: string;
   imageUrl: string;
   likes: number;
   origin: string;
-  rating?: number | null;  // Optional, as per schema
+  rating?: number | null;
   symptoms: string;
   tags: string;
   usageIdeas: string;
 };
 
-// Define CombinedItem type with the added moduleType field
+// Extend with moduleType
 export type CombinedItem = Aromatherapy & {
-  moduleType: "aromatherapy"; // Adding moduleType to match your application's needs
+  moduleType: "aromatherapy";
 };
 
 export default async function AromatherapyPage() {
-  // Fetching data server-side
   const rawData: Aromatherapy[] = await getAllAromatherapy();
 
-  // Mapping raw data to include moduleType field
   const data: CombinedItem[] = rawData.map((item) => ({
     ...item,
-    moduleType: "aromatherapy", // Add moduleType
+    moduleType: "aromatherapy",
   }));
 
   return (
-    <section className="px-6 py-20 min-h-screen bg-gradient-to-b from-[#F1EFE3] to-[#D7E0D3]">
-      <h2 className="text-3xl font-semibold text-center mb-10 text-[#5C3D2E]">Aromatherapy Remedies</h2>
+    <section className="relative min-h-screen px-6 py-20 overflow-hidden">
+      {/* Full Page Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://i.pinimg.com/736x/12/2b/96/122b96905b07877ff5312443304e8dfd.jpg"
+          alt="Page Background"
+          className="w-full h-full object-cover opacity-10"
+        />
+      </div>
 
-      {/* Search Bar Component */}
-      <SearchBar data={data} />
+      {/* Foreground Content */}
+      <div className="relative z-20">
+        <h2 className="text-3xl font-semibold text-center mb-10 text-[#5C3D2E]">
+          Aromatherapy Remedies
+        </h2>
 
-      {/* Displaying the fetched data */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-        {data.map((item) => (
-          <div
-          key={item.id}
-          className="bg-[#faefe1] border border-[#D8D1C6] rounded-xl shadow-lg p-6 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-          >
+        {/* Search Bar */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <SearchBar data={data} moduleType="aromatherapy" />
+        </div>
 
-        
-            <img
-              src={item.imageUrl}
-              alt={item.name}
-              className="w-full h-56 object-cover rounded-md mb-4" // Increased image height for better view
-            />
-            <h3 className="text-xl font-bold text-[#5C3D2E] mb-2">{item.name}</h3>
-            <p className="text-sm text-[#4A3F33] mb-1">{item.description}</p>
-            <p className="text-sm text-[#6B5F4D] italic mb-2">Helps with: {item.symptoms}</p>
+        {/* Card Container with Blurred Background */}
+        <div
+          className="relative rounded-lg shadow-md p-6"
+          style={{ position: 'relative', zIndex: 1, overflow: 'hidden' }}
+        >
 
-            {/* Tags as pastel badges */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              {item.tags.split(',').map((tag, idx) => (
-                <span
-                key={idx}
-                className="px-3 py-1 text-xs bg-[#D6CFC1] text-[#5B4F3B] rounded-full"
+          {/* Remedy Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 relative z-10">
+            {data.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#f8f2eb] border border-[#D8D1C6] rounded-xl shadow-lg p-6 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
               >
-                  #{tag.trim()}
-                </span>
-              ))}
-            </div>
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-full h-56 object-cover rounded-md mb-4"
+                />
+                <h3 className="text-xl font-bold text-[#5C3D2E] mb-2">{item.name}</h3>
+                <p className="text-sm text-[#4A3F33] mb-1">{item.description}</p>
+                <p className="text-sm text-[#6B5F4D] italic mb-2">
+                  Helps with: {item.symptoms}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {item.tags.split(",").map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs bg-[#D6CFC1] text-[#5B4F3B] rounded-full"
+                    >
+                      #{tag.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );
