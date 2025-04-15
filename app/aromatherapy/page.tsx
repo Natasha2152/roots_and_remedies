@@ -14,7 +14,7 @@ export type Aromatherapy = {
     imageUrl: string;
     likes: number;
     origin: string;
-    rating?: number;  // Change to `rating?: number` to allow undefined
+    rating?: number | null;  // Change to `rating?: number` to allow undefined
     symptoms: string;
     tags: string;
     usageIdeas: string;

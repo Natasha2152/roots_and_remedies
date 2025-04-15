@@ -14,7 +14,7 @@ type Aromatherapy = {
   imageUrl: string;
   likes: number;
   origin: string;
-  rating?: number;
+  rating?: number |null;
   symptoms: string;
   tags: string;
   usageIdeas: string;
