@@ -17,10 +17,15 @@ type HerbalMedicine = {
   usageIdeas: string;
   createdAt: Date;
   updatedAt: Date;
+  moduleType: "herbalmedicine"; // Ensure the moduleType is included here
 };
-
 export default async function HerbalHealingPage() {
-  const data: HerbalMedicine[] = await getAllHerbalMedicine();
+  const rawData = await getAllHerbalMedicine();
+
+  const data: HerbalMedicine[] = rawData.map((item) => ({
+    ...item,
+    moduleType: "herbalmedicine" as const,
+  }));
 
   return (
     <section className="px-6 py-20 min-h-screen bg-gradient-to-b from-[#F7FAF8] to-[#FFF8F0]">
@@ -29,10 +34,11 @@ export default async function HerbalHealingPage() {
       </h2>
 
       <div className="max-w-4xl mx-auto mb-8">
-        <SearchBar data={data} />
+        <SearchBar data={data} moduleType="herbalmedicine" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {/* Use enrichedData here, not data */}
         {data.map((item) => (
           <div
             key={item.id}
@@ -45,8 +51,8 @@ export default async function HerbalHealingPage() {
             />
             <h3 className="text-xl font-bold text-[#4E6B4F]">{item.name}</h3>
             <p className="text-sm text-gray-700 mt-1">{item.description}</p>
-            <p className="text-sm text-[#7E8F7C] mt-2">🌿 Benefits: {item.benefits}</p>
-            <p className="text-sm text-[#7E8F7C]">💡 Usage: {item.usageIdeas}</p>
+            <p className="text-sm text-[#7E8F7C] mt-2"> Benefits: {item.benefits}</p>
+            <p className="text-sm text-[#7E8F7C]"> Usage: {item.usageIdeas}</p>
             <p className="text-xs text-[#B0B8A9] mt-1">Symptoms: {item.symptoms}</p>
             <p className="text-xs text-[#B0B8A9]">Origin: {item.origin}</p>
 
@@ -60,12 +66,6 @@ export default async function HerbalHealingPage() {
                   #{tag.trim()}
                 </span>
               ))}
-            </div>
-
-            {/* Likes & Rating */}
-            <div className="flex justify-between items-center text-xs text-[#6A7F6C] mt-4">
-              <span>❤️ {item.likes} Likes</span>
-              <span>⭐ {item.rating ?? "N/A"}</span>
             </div>
           </div>
         ))}
