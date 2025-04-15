@@ -2,22 +2,22 @@ import { getAllTraditionalHealing } from "../../lib/queries/traditionalhealing";
 import SearchBar from "@/components/SearchBar";
 
 type TraditionalHealing = {
-    id: number;
-    technique: string;
-    culture: string;
-    healingMethod: string;
-    createdAt: Date;
-    updatedAt: Date;
-    usageIdeas: string;
-    benefits: string;
-    description: string;
-    imageUrl: string;
-    likes: number;
-    rating: number | null;
-    region: string;
-    tags: string;
-    moduleType: "traditionalhealing";
-  };  
+  id: number;
+  technique: string;
+  culture: string;
+  healingMethod: string;
+  createdAt: Date;
+  updatedAt: Date;
+  usageIdeas: string;
+  benefits: string;
+  description: string;
+  imageUrl: string;
+  likes: number;
+  rating: number | null;
+  region: string;
+  tags: string;
+  moduleType: "traditionalhealing";
+};
 
 export default async function TraditionalHealingPage() {
   const rawData = await getAllTraditionalHealing();
@@ -41,12 +41,12 @@ export default async function TraditionalHealingPage() {
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-white border border-[#E0E4DC] rounded-lg shadow p-5 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out transform"
+            className="min-h-[500px] bg-[rgba(232,220,202,0.5)] border border-[#DCE1DA] rounded-lg shadow p-5 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out transform"
           >
             <img
               src={item.imageUrl}
               alt={item.technique}
-              className="w-full h-40 object-cover rounded-md mb-4"
+              className="w-full h-48 object-cover rounded-md mb-4"
             />
             <h3 className="text-xl font-bold text-[#4E6B4F]">{item.technique}</h3>
             <p className="text-sm text-gray-700 mt-1">{item.description}</p>
@@ -57,7 +57,7 @@ export default async function TraditionalHealingPage() {
             </p>
 
             <div className="flex flex-wrap gap-2 mt-3">
-              {item.tags.split(',').map((tag, idx) => (
+              {item.tags.split(",").map((tag, idx) => (
                 <span
                   key={idx}
                   className="px-2 py-1 text-xs bg-[#E9F5F0] text-[#3A5743] rounded-full"

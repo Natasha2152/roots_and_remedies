@@ -4,7 +4,7 @@ export async function getAllTraditionalHealing() {
   try {
     const data = await prisma.traditionalHealing.findMany({
       orderBy: {
-        technique: "desc",
+        technique: "asc",
       },
     });
     return data;
