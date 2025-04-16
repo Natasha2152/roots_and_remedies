@@ -34,7 +34,7 @@ export default async function TraditionalHealingPage() {
         <img
           src="https://i.pinimg.com/236x/57/d5/9e/57d59e1a3dc10ba4ab5d71db981dcec0.jpg"
           alt="Page Background"
-          className="w-full h-full object-cover opacity-9"
+          className="w-full h-full object-cover opacity-11"
         />
       </div>
 
